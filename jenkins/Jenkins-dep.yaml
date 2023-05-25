@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: jenkins
-        image: public.ecr.aws/bitnami/jenkins:latest
+        image: public.ecr.aws/m6k9s1m7/jenkins-agent:K12-runtime
         ports:
         - containerPort: 8080
