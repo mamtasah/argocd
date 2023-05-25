@@ -1,0 +1,36 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: project-sigma
+  namespace: argocd
+spec:
+  sourceRepos:
+  - https://github.com/mamtasah/argocd.git
+  destinations:
+  - namespace: argocd
+    server: https://kubernetes.default.svc
+  # - namespace: jenkins
+  #   server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: project-sigma
+  namespace: argocd
+spec:
+  project: project-sigma
+  source:
+    repoURL: https://github.com/mamtasah/argocd.git
+    targetRevision: master
+    path: demoapp
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
